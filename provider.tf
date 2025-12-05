@@ -1,4 +1,3 @@
-# Определяет требуемые провайдеры и их версии — это инициализирует plugins при terraform init.
 terraform {
   required_providers {
     null = {
@@ -11,23 +10,21 @@ terraform {
       source = "hashicorp/helm"
     }
   }
-  # Конфигурация backend: remote для Terraform Cloud — state хранится удаленно, token из env TF_TOKEN_app_terraform_io (из Jenkins creds).
+
   backend "remote" {
-    organization = "your-org"  # Замените на вашу organization из Terraform Cloud (User > Organizations > Create or select).
+    organization = "your-org"  # <--- ЗАМЕНИТЕ НА ВАШУ ОРГАНИЗАЦИЮ В TF CLOUD
     workspaces {
-      name = "k3s-vps-setup"  # Замените на имя вашего workspace из Terraform Cloud (Workspaces > Create workspace).
+      name = "k3s-vps-setup" # <--- ЗАМЕНИТЕ НА ИМЯ ВАШЕГО WORKSPACE
     }
   }
 }
 
-# Provider kubernetes: подключается к k3s с локальным kubeconfig.
 provider "kubernetes" {
-  config_path = "kubeconfig.yaml"  # Путь к скачанному kubeconfig.
+  config_path = "kubeconfig.yaml" # <--- Путь к kubeconfig.yaml на Jenkins-контроллере (в рабочей директории пайплайна)
 }
 
-# Provider helm: использует тот же kubeconfig для Helm.
 provider "helm" {
   kubernetes {
-    config_path = "kubeconfig.yaml"
+    config_path = "kubeconfig.yaml" # <--- Путь к kubeconfig.yaml на Jenkins-контроллере (в рабочей директории пайплайна)
   }
 }

@@ -1,22 +1,21 @@
-# Входные переменные — позволяют параметризовать без hardcode (передавать из Jenkins).
 variable "vps_ip" {
    type        = string
-   description = "IP вашего VPS (из VDSina dashboard, e.g., '85.198.111.128')"
+   description = "IP вашего VPS"
 }
 
 variable "ssh_key_path" {
    type        = string
-   default     = "~/.ssh/id_rsa"
-   description = "Путь к SSH ключу на Jenkins-хосте (где хранится приватный ключ для user dev)"
+   default     = "C:/Users/your_user/.ssh/id_rsa" # <--- ЗАМЕНИТЕ НА ПУТЬ К ВАШЕМУ КЛЮЧУ НА WINDOWS
+   description = "Путь к SSH ключу на Jenkins-контроллере (Windows)"
 }
 
 variable "github_repo" {
    type        = string
-   description = "GitHub repo для Flux (e.g., 'yourusername/gitops-repo' — из GitHub > Repos > Create new)"
+   description = "GitHub repo для Flux (e.g., 'yourusername/gitops-repo')"
 }
 
 variable "github_token" {
    type        = string
-   sensitive   = true  # Маркирует как sensitive: значение маскируется в output/logs для безопасности.
-   description = "GitHub PAT (Personal Access Token) для Flux (из GitHub > Settings > Developer settings > Personal access tokens > Generate new, scopes: repo)"
+   sensitive   = true
+   description = "GitHub PAT для Flux"
 }

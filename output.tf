@@ -1,10 +1,6 @@
-
-output "public_ip" {
- value       = aws_instance.my_vm.public_ip
- description = "Public IP Address of EC2 instance"
-}
-
-output "instance_id" {
- value       = aws_instance.my_vm.id
- description = "Instance ID"
+# Выходные значения — возвращаются после apply, полезны для Jenkins (e.g., для последующих stages).
+output "kubeconfig_path" {
+ description = "Путь к скачанному kubeconfig на Jenkins-хосте"
+ value       = "kubeconfig.yaml"
+ sensitive   = false
 }
